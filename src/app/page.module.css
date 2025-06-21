@@ -1,38 +1,26 @@
 /* Общий контейнер приложения */
 .appContainer {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
   min-height: 100vh;
   background-color: #f0f2f5;
   font-family: var(--font-geist-sans);
-  padding: 40px 20px;
 }
 
 /* Боковая панель */
 .sidebar {
-  width: 320px;
+  width: 300px;
+  flex-shrink: 0;
   background: #ffffff;
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
+  padding: 30px 20px;
   border-right: 1px solid #e0e0e0;
-  transition: all 0.3s ease-in-out;
-  overflow-y: auto;
-}
-
-.sidebarCollapsed {
-  width: 0;
-  padding: 25px 0;
-  opacity: 0;
-  pointer-events: none;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.05);
 }
 
 .sidebarTitle {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   text-align: center;
 }
 
@@ -44,39 +32,79 @@
 
 .testCard {
   color: white;
-  padding: 25px 20px;
+  padding: 20px;
   border-radius: 12px;
-  border: none;
-  font-size: 1.3rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.cardContent {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  z-index: 2;
+}
+.cardName {
+  font-size: 1.2rem;
   font-weight: 600;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.cardIcon {
+  font-size: 1.2rem;
+  line-height: 1;
 }
 
-.testCard:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+/* Состояния карточек */
+.locked {
+  background: #e9ecef;
+  color: #6c757d;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+.locked .cardIcon {
+  opacity: 0.5;
+}
+
+.active {
+  transform: scale(1.03);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.completed::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 1;
+}
+.completed {
+  opacity: 0.9;
 }
 
 /* Основной контент */
 .mainContent {
+  flex-grow: 1;
+  padding: 40px;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.mainContent > * {
   width: 100%;
   max-width: 900px;
 }
 
-.mainContentExpanded {
-  width: 100%;
-}
-
-/* Приветственное сообщение */
+/* Приветственное сообщение и финальные результаты */
 .welcomeMessage,
 .finalResultsContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding-top: 5vh;
 }
 
 .welcomeBox,
@@ -124,8 +152,9 @@
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
 }
 
-/* Компонент теста */
-.quizContainer {
+/* Компонент теста (остальные стили) */
+.quizContainer,
+.resultsContainer {
   width: 100%;
 }
 
@@ -161,7 +190,6 @@
   line-height: 1.4;
 }
 
-/* Полоса прогресса */
 .progressBarContainer {
   height: 8px;
   background-color: #e9ecef;
@@ -247,11 +275,6 @@
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
-/* Результаты теста */
-.resultsContainer {
-  width: 100%;
-}
-
 .score {
   text-align: center;
   padding: 40px;
@@ -287,11 +310,12 @@
   padding: 15px 20px;
   cursor: pointer;
   font-weight: 500;
-  list-style: none; /* Убрать маркер */
+  list-style: none;
 }
 .answerSummary::-webkit-details-marker {
-  display: none; /* Убрать маркер в Chrome/Safari */
+  display: none;
 }
+
 .answerSummary:hover {
   background-color: #f8f9fa;
 }
@@ -312,7 +336,6 @@
   background-color: #fdfdfd;
   line-height: 1.6;
 }
-
 .answerDetails p {
   margin: 10px 0;
 }
@@ -339,7 +362,6 @@
   transform: translateY(-1px);
 }
 
-/* Финальные результаты */
 .finalPercentage {
   font-size: 2rem;
   margin: 20px 0 5px 0;

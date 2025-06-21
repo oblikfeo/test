@@ -31,7 +31,7 @@ export default function HomePage() {
     setTotalScore(0)
   }
 
-  const renderContent = () => {
+  const renderMainContent = () => {
     switch (testState) {
       case 'testing':
         const currentTest = tests[currentTestIndex]
@@ -101,8 +101,9 @@ export default function HomePage() {
               <h1>Оценка квалификации разработчика</h1>
               <p>
                 Вам предстоит пройти серию тестов по ключевым технологиям
-                веб-разработки. Тесты идут последовательно. В конце вы получите
-                итоговую оценку вашего уровня.
+                веб-разработки. Тесты идут последовательно. Слева будет
+                отображаться ваш прогресс. В конце вы получите итоговую оценку
+                вашего уровня.
               </p>
               <button onClick={startAssessment} className={styles.startButton}>
                 Начать оценку
@@ -115,7 +116,40 @@ export default function HomePage() {
 
   return (
     <div className={styles.appContainer}>
-      <main className={styles.mainContent}>{renderContent()}</main>
+      {(testState === 'testing' || testState === 'final_results') && (
+        <aside className={styles.sidebar}>
+          <h2 className={styles.sidebarTitle}>Ваш путь</h2>
+          <div className={styles.testList}>
+            {tests.map((test, index) => {
+              const isCompleted =
+                index < currentTestIndex || testState === 'final_results'
+              const isActive =
+                index === currentTestIndex && testState === 'testing'
+
+              let cardClass = styles.testCard
+              if (isActive) cardClass += ` ${styles.active}`
+              if (isCompleted) cardClass += ` ${styles.completed}`
+              if (!isActive && !isCompleted) cardClass += ` ${styles.locked}`
+
+              const cardStyle =
+                isActive || isCompleted ? { background: test.gradient } : {}
+
+              return (
+                <div key={test.slug} className={cardClass} style={cardStyle}>
+                  <div className={styles.cardContent}>
+                    <span className={styles.cardIcon}>
+                      {isCompleted ? '✓' : '●'}
+                    </span>
+                    <span className={styles.cardName}>{test.name}</span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </aside>
+      )}
+
+      <main className={styles.mainContent}>{renderMainContent()}</main>
     </div>
   )
 }
