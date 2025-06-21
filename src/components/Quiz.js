@@ -151,7 +151,7 @@ export default function Quiz({
     return (
       <div className={styles.resultsContainer}>
         <div className={styles.score} style={{ background: gradient }}>
-          <h2>Результаты теста "{name}"</h2>
+          <h2>Результаты теста «{name}»</h2>
           <h3>Ваш результат: {score}%</h3>
           <p>
             ({correctCount} из {questions.length} правильных ответов)
