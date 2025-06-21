@@ -90,7 +90,7 @@
   overflow-y: auto;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 .mainContent > * {
   width: 100%;
@@ -104,7 +104,6 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding-top: 5vh;
 }
 
 .welcomeBox,
@@ -394,4 +393,104 @@
   font-size: 1.1rem;
   line-height: 1.6;
   color: #333;
+}
+
+.levelIndicator p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Адаптивная версия для мобильных устройств */
+@media (max-width: 820px) {
+  .appContainer {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    order: 1; /* Сайдбар вверху */
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px;
+  }
+
+  .sidebarTitle {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  .testList {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 15px; /* Для пространства под скроллбар */
+    gap: 10px;
+  }
+
+  /* Стилизация скроллбара для Webkit-браузеров */
+  .testList::-webkit-scrollbar {
+    height: 8px;
+  }
+  .testList::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  .testList::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+  .testList::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+  }
+
+  .testCard {
+    flex-shrink: 0; /* Чтобы карточки не сжимались */
+    width: 220px;
+    padding: 15px;
+  }
+
+  .cardName {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .mainContent {
+    flex-grow: 1;
+    padding: 40px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mainContent > * {
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .welcomeBox,
+  .finalScoreBox {
+    padding: 30px 20px;
+  }
+
+  .welcomeBox h1,
+  .finalTitle,
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .options {
+    grid-template-columns: 1fr; /* Одна колонка для вариантов ответа */
+  }
+
+  .header {
+    padding: 25px 20px;
+  }
+
+  .questionContainer h3 {
+    font-size: 1.4rem;
+  }
+
+  .main {
+    padding: 25px 20px;
+  }
 }
