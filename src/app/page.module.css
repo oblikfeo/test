@@ -8,10 +8,8 @@
 
 /* Боковая панель */
 .sidebar {
-  width: 300px;
   flex-shrink: 0;
   background: #ffffff;
-  padding: 30px 20px;
   border-right: 1px solid #e0e0e0;
   box-shadow: 2px 0 15px rgba(0, 0, 0, 0.05);
 }
@@ -408,11 +406,8 @@
   }
 
   .sidebar {
-    width: 100%;
-    order: 1; /* Сайдбар вверху */
     border-right: none;
     border-bottom: 1px solid #e0e0e0;
-    padding: 15px;
   }
 
   .sidebarTitle {
